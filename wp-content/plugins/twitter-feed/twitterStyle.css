@@ -1,0 +1,196 @@
+/* FRONTPAGE STYLES */
+div.dInternalContainer div#twitterSpace {
+	height: relative;
+	border: 1px solid #ddd;
+	background-color: #9ae4e8;
+}
+div.dInternalContainer div#twitterSpace div#twitterHeader {
+	height: 40px;
+	background-color: #9ae4e8;
+}
+div.dInternalContainer div#twitterSpace img.main {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+div.dInternalContainer div#twitterSpace div.builtByArea {
+	color: #666 !important;
+	font-size: 10px !important;
+	text-align: center;
+	margin-bottom: 10px;
+}
+div.dInternalContainer div#twitterSpace div.tweet {
+	/* T R B L */
+	padding: 10px 0px 10px 10px;
+	font-family: sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	border: 1px solid #ddd;
+	color: #444;
+}
+div.dInternalContainer div#twitterSpace div.dateText {
+	font-size: 10px !important;
+	text-align: center;
+	color: #999;
+}
+div.dInternalContainer div#twitterSpace div.tweetPic img {
+	margin-right: 10px;
+	margin-bottom: 5px;
+	float: left;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ddd;
+	padding: 3px;
+}
+div.dInternalContainer div#twitterSpace #toggleLink img {
+	float: right;
+}
+div.dInternalContainer div#twitterSpace span#toggleSpace {
+	cursor: pointer;
+}
+div.dInternalContainer div#twitterSpace div.tweetSpace {
+	background-color: #FFFFFF;
+	margin: 10px 10px 10px 10px;
+}
+a.toggleLink:link, a.toggldiv.dInternalContainer div#twitterSpace eLink:visited {
+	color: #264675;
+	font-size: small;
+	margin-left: 130px;
+}
+div.dInternalContainer div#twitterSpace .screenName a:link, .screenName a:visited {
+	color: #666;
+	font-size: 11px;
+	font-style: normal;
+}
+div.dInternalContainer div#twitterSpace div.viewAll {
+	text-align: center;
+	margin: 20px 0 20px 0;
+}
+div.dInternalContainer div#twitterSpace div.viewAll a {
+	font-size: 11px;
+	text-decoration: none;
+	border: #D4F7FF 2px solid;
+	padding: 3px 5px;
+	background-color: #3EA0B7;
+	color: #fff;
+	font-weight: bold;
+}
+div.dInternalContainer div#twitterSpace div.viewAll a:hover {
+	background-color:#ccc;
+}
+/* TWITTERPAGE STYLES */
+div.dPostPreview div#twitterSpace {
+	height: relative;
+	border: none;
+	background-color: #fff;
+}
+div.dPostPreview div#twitterSpace div#twitterHeader {
+	height: 45px;
+	background-color: #F8F8F8;
+	margin: 0 10px 5px 0;
+	border: none;
+	border-bottom: 1px solid #efefef;
+	border-top: 1px solid #efefef;
+	background-image:url(twitterpageheader.gif);
+	background-repeat:no-repeat;
+	background-position: 8px 5px;
+}
+div.dPostPreview div#twitterSpace img.main {
+	margin-left: 10px;
+	margin-top: 5px;
+	border: none;
+	display: none;
+}
+div.dPostPreview div#twitterSpace div.builtByArea {
+	color: #666 !important;
+	font-size: 10px !important;
+	text-align: center;
+	margin-bottom: 10px;
+}
+div.dPostPreview div#twitterSpace div.tweet {
+	padding: 10px 10px 15px 0;
+	font-family: sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	border: none;
+	border-bottom: 1px solid #efefef;
+	color: #444;
+	background-color: #fff;
+	margin:0 10px 0 0;
+}
+div.dPostPreview div#twitterSpace div.dateText {
+	font-size: 10px !important;
+	text-align: left;
+	color: #999;
+	margin: 0 0 0 68px;
+}
+div.dPostPreview div#twitterSpace div.tweetPic img {
+	margin-right: 10px;
+	margin-bottom: 5px;
+	float: left;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ddd;
+	padding: 3px;
+}
+div.dPostPreview div#twitterSpace #toggleLink img {
+	float: right;
+}
+div.dPostPreview div#twitterSpace img#toggleLink {
+	display: none;
+}
+div.dPostPreview div#twitterSpace span#toggleSpace {
+	cursor: pointer;
+}
+div.dPostPreview div#twitterSpace div.tweetSpace {
+	background-color: #FFFFFF;
+	margin: 0 10px 10px 10px;
+}
+a.toggleLink:link, a.toggldiv.dInternalContainer div#twitterSpace eLink:visited {
+	color: #264675;
+	font-size: small;
+	margin-left: 130px;
+}
+div.dPostPreview div#twitterSpace .screenName a:link, .screenName a:visited {
+	color: #666;
+	font-size: 11px;
+	font-style: normal;
+}
+/* USER CONTROL PANEL STYLES */
+.usernametable {
+	margin: 15px 0 0 0;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+.otheroptionstable {
+	margin: 15px 0 0 0;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+.otheroptionstable tr th {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding: 5px;
+	background-color: #efefef;
+	text-align: center !important;
+}
+.usernametable tr th {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding: 5px;
+	background-color: #efefef;
+}
+.usernametable tr td {
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+}
+.otheroptionstable tr td {
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+}
+.usernametable tr td.twittercheck, .otheroptionstable tr td.twittercheck {
+	text-align: center;
+	width: 20px;
+}
+.usernametable tr td.twittername, .usernametable tr th.twittername, .otheroptionstable tr td.twittername, .otheroptionstable tr th.twittername {
+	text-align:left;
+}
