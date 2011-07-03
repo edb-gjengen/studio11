@@ -48,14 +48,13 @@ class Artist_Widget extends WP_Widget {
   function widget($args, $instance) {
     global $post, $wp_locale;
     $args['title'] = 'Artister';
-    $studart = new WP_Query( array('post_type' => 'artist', 'posts_per_page' => -1,'meta_key' => 'studio_artist_pop','orderby' => 'meta_value', 'order' => 'ASC'));
+    $studart = new WP_Query( array('post_type' => 'artist', 'posts_per_page' => -1, 'orderby' => 'rand'));
     echo $args['before_widget'] . $args['before_title'] . $args['title'] . $args['after_title'];
     if ( $studart->have_posts() ) {
       while ( $studart->have_posts() ) {
 	$studart->the_post();
-	echo get_post_meta($post->ID, 'studio_artist_pop', true);
 	$link = get_post_meta($post->ID, 'studio_artist_link', true) ? get_post_meta($post->ID, 'studio_artist_link', true) : get_permalink();
-	echo '<p style="font-size:'.get_post_meta($post->ID, 'studio_artist_pop', true).'px"><a href="' . $link . '">' . get_the_title() . '</a></p>';
+	echo '<p style="font-size:'.get_post_meta($post->ID, 'studio_artist_font', true).'px"><a href="' . $link . '">' . get_the_title() . '</a></p>';
       } 
     } echo $args['after_widget'];
   }

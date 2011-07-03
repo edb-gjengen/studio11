@@ -81,23 +81,24 @@ if (!class_exists("StudioArtist")) {
 
 	global $post;
 
-	$artist_pop  = get_post_meta($post->ID, 'studio_artist_pop' , true);
+	$artist_font = get_post_meta($post->ID, 'studio_artist_font' , true);
 	$artist_link = get_post_meta($post->ID, 'studio_artist_link', true);
 
-	echo "Størrelse:";
-	echo '<select name="studio_artist_pop">';
-	echo $artist_pop;
+	echo "Fontstørrelse:";
+	echo '<select name="studio_artist_font">';
+	echo $artist_font;
 
-	$types = array( array('name'=>'Singstar/Guitarhero', 'size' => 12),
-			array('name'=>'Liten Artist', 'size' => 15),
-			array('name'=>'Mellomstor Artist', 'size' => 18),
-			array('name'=>'Stor', 'size' => 21),
-			array('name'=>'Enorm', 'size' => 24),
+	$types = array( array('name'  =>  'Flink i Guitarhero'   , 'size' => 12),
+			array('name'  =>  'Liten Artist'         , 'size' => 15),
+			array('name'  =>  'Mellomstor Artist'    , 'size' => 18),
+			array('name'  =>  'Stor Artist'          , 'size' => 21),
+			array('name'  =>  'Oh! Dette blir fest!' , 'size' => 24),
+			array('name'  =>  'Hopalong Knut!!'      , 'size' => 44),
 			);
 
 	foreach($types as $type){
 	  echo '<option value="' . $type['size'] . '"';
-	  if($type['size'] == $artist_pop)
+	  if($type['size'] == $artist_font)
 	    echo ' selected="selected"';
 	  echo '>' . $type['name'] . '</option>';
 	}
@@ -120,7 +121,7 @@ if (!class_exists("StudioArtist")) {
 	if ( !current_user_can( 'edit_post', $post_id )  ) return $post_id;
 	
 	// Get posted data
-	$studart['studio_artist_pop']  = $_POST['studio_artist_pop' ];
+	$studart['studio_artist_font'] = $_POST['studio_artist_font' ];
 	$studart['studio_artist_link'] = $_POST['studio_artist_link'];
 	
 	foreach($studart as $key=>$value)
@@ -143,7 +144,7 @@ if (!class_exists("StudioArtist")) {
 	  
 	  while ( $artister->have_posts() ) {
 	    $artister->the_post();
-	    $size = get_post_meta($post->ID, 'studio_artist_pop', true);
+	    $size = get_post_meta($post->ID, 'studio_artist_font', true);
 	    $html .= '  <li class="title" style="padding-right:10px; font-size:'.$size.'px"><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
 	  }
 	    
