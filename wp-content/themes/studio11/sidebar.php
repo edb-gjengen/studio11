@@ -21,8 +21,8 @@
 	 */
 	if ( ! dynamic_sidebar( 'left-primary-widget-area' ) ) : ?>
 
-			<?php dynamic_sidebar( 'secondary-widget-area' ); ?>
-		<?php endif; // end primary widget area ?>
+	  <?php dynamic_sidebar( 'left-primary-widget-area' ); ?>
+		   <?php endif; // end primary widget area ?>
 			</ul>
 		</div><!-- #primary .widget-area -->
 

@@ -1,0 +1,3 @@
+[submodule "wp-content/plugins/neuf-events"]
+        path = wp-content/plugins/neuf-events
+        url = git@github.com:neuf/neuf-events.git

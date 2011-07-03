@@ -506,3 +506,4 @@ function twentyten_posted_in() {
 	);
 }
 endif;
+
