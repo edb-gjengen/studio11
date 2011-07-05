@@ -1,0 +1,45 @@
+/* Begin Debug Queries CSS */
+.transparent {
+	filter: alpha(opacity=90);
+	opacity: 0.9;
+}
+
+#debugqueries {
+	width: 90%;
+	margin: 1em auto;
+	padding: 15px 35px;
+	border: 1px solid #000;
+	background: #464646;
+	color: #fff;
+	text-align: left;
+	z-index: 999;
+}
+
+#debugqueries h2, #debugqueries p, #debugqueries a {
+	color: #fff;
+}
+
+#debugqueries li {
+	padding: 5px 0;
+}
+
+#debugqueries ul {
+	margin-top: 1em;
+}
+#debugqueries ol li ul li, #debugqueries ul li {
+	padding: 0 5px;
+}
+#debugqueries ol li ul li:hover, #debugqueries ul li:hover {
+	color: #000;
+	background-color: #DFDFDF;
+}
+
+#debugqueries li.alt {
+	color: #D98500;
+}
+
+#debugqueries li.none_list {
+	list-style-type: none;
+}
+
+/* End Debug Queries CSS */
