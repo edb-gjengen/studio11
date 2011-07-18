@@ -5,5 +5,5 @@
 	path = wp-content/plugins/neuf-venues
 	url = git@github.com:neuf/Neuf-Venues.git
 [submodule "wp-content/themes/studio11"]
-	path = wp-content/plugins/studio11
+	path = wp-content/themes/studio11
 	url = git@github.com:neuf/studio11-theme.git

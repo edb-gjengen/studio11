@@ -88,12 +88,12 @@ if (!class_exists("StudioArtist")) {
 	echo '<select name="studio_artist_font">';
 	echo $artist_font;
 
-	$types = array( array('name'  =>  'Flink i Guitarhero'   , 'size' => 12),
-			array('name'  =>  'Liten Artist'         , 'size' => 15),
-			array('name'  =>  'Mellomstor Artist'    , 'size' => 18),
-			array('name'  =>  'Stor Artist'          , 'size' => 21),
-			array('name'  =>  'Oh! Dette blir fest!' , 'size' => 24),
-			array('name'  =>  'Hopalong Knut!!'      , 'size' => 44),
+	$types = array( array('name'  =>  'Flink i Guitarhero'   , 'size' => 'minst'),
+			array('name'  =>  'Liten Artist'         , 'size' => 'liten'),
+			array('name'  =>  'Mellomstor Artist'    , 'size' => 'normalliten'),
+			array('name'  =>  'Stor Artist'          , 'size' => 'normalstor'),
+			array('name'  =>  'Oh! Dette blir fest!' , 'size' => 'stor'),
+			array('name'  =>  'Hopalong Knut!!'      , 'size' => 'mega'),
 			);
 
 	foreach($types as $type){
