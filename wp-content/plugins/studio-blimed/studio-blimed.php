@@ -328,16 +328,16 @@ function blimed_print_table( $funks ){
         $tidvar = array('morgen', 'dag', 'kveld', 'natt');
         echo "<table style='border:1px;'>
             <tr>
-                <th>Navn</th>
-                <th>Epost</th>
-                <th>Telefon</th>
-                <th>Studiested</th>
-                <th>Førstevalg</th>
-                <th>Andrevalg</th>
-                <th>Tredjevalg</th>
-                <th>Dager</th>
-                <th>Tider</th>
-                <th>Kommentar</th>
+                <th>Navn&nbsp;&nbsp;</th>
+                <th>Epost&nbsp;&nbsp;</th>
+                <th>Telefon&nbsp;&nbsp;</th>
+                <th>Studiested&nbsp;&nbsp;</th>
+                <th>Førstevalg&nbsp;&nbsp;</th>
+                <th>Andrevalg&nbsp;&nbsp;</th>
+                <th>Tredjevalg&nbsp;&nbsp;</th>
+                <th>Dager&nbsp;&nbsp;</th>
+                <th>Tider&nbsp;&nbsp;</th>
+                <th>Kommentar&nbsp;&nbsp;</th>
             </tr>
         ";
         foreach ($funks as $funk) {
@@ -351,15 +351,15 @@ function blimed_print_table( $funks ){
             }
     
             echo "<tr>
-                    <td>$funk->name</td>
-                    <td>$funk->mail</td>
-                    <td>$funk->tlf</td>
-                    <td>$funk->studsted</td>
-                    <td>$funk->valg1</td>
-                    <td>$funk->valg2</td>
-                    <td>$funk->valg3</td>
-                    <td>$dager</td>
-                    <td>$tider</td>
+                    <td>$funk->name&nbsp;&nbsp;</td>
+                    <td>$funk->mail&nbsp;&nbsp;</td>
+                    <td>$funk->tlf&nbsp;&nbsp;</td>
+                    <td>$funk->studsted&nbsp;&nbsp;</td>
+                    <td>$funk->valg1&nbsp;&nbsp;</td>
+                    <td>$funk->valg2&nbsp;&nbsp;</td>
+                    <td>$funk->valg3&nbsp;&nbsp;</td>
+                    <td>$dager&nbsp;&nbsp;</td>
+                    <td>$tider&nbsp;&nbsp;</td>
                     <td>$funk->kommentar</td>
                   </tr>" ;
         }
