@@ -9,9 +9,11 @@ Author: Sjur Hernes
 Author URI: 
 */
 
-
+//include_once './studio-blimed-admin.php';
 register_activation_hook( __FILE__,  'studio_blimed_install' );
 register_deactivation_hook( __FILE__,  'studio_blimed_uninstall' );
+
+/** drops table on deactivation TODO : Get backup on deactivation */
 
 function studio_blimed_uninstall() {
   global $wpdb;
@@ -19,6 +21,7 @@ function studio_blimed_uninstall() {
   $wpdb->query("DROP TABLE IF EXISTS $studio_blimed_table ;");
 }
 
+/** Activation of plugin, creates the tables */
 
 function studio_blimed_install() {
   global $wpdb;
@@ -32,12 +35,9 @@ function studio_blimed_install() {
       studsted tinytext NOT NULL,
       mail tinytext NOT NULL,
       tlf tinytext NOT NULL,
-      teknisk tinyint(1) NOT NULL,
-      trivsel tinyint(1) NOT NULL,
-      transport tinyint(1) NOT NULL,
-      bar tinyint(1) NOT NULL,
-      konsert tinyint(1) NOT NULL,
-      artist tinyint(1) NOT NULL,
+      valg1 tinytext NOT NULL,
+      valg2 tinytext NOT NULL,
+      valg3 tinytext NOT NULL,
       morgen tinyint(1) NOT NULL,
       dag tinyint(1) NOT NULL,
       kveld tinyint(1) NOT NULL,
@@ -57,6 +57,10 @@ function studio_blimed_install() {
   }
 }
 
+
+/** 
+ * Shows form and inserts on _POST
+ */
 function blimed_form( ) {
   global $wpdb;
   $table_name = $wpdb->prefix . 'studio_blimed_table';
@@ -64,31 +68,27 @@ function blimed_form( ) {
 
   if (isset($_POST['save'])) {
 
-    if ($_POST['funk_name'] != '' && 
-	$_POST['funk_mail'] != '' &&
-	$_POST['funk_tlf'] != '' &&
-	($_POST['funk_artist'] == 't' || 
-	 $_POST['funk_bar'] == 't' || 
-	 $_POST['funk_teknisk'] == 't' || 
-	 $_POST['funk_transport'] == 't' || 
-	 $_POST['funk_konsert'] == 't' ||
-	 $_POST['funk_trivsel'] == 't')) {
-      
+    // Some values should allways be there
+    if ($_POST['funk_name']  != '' && 
+	$_POST['funk_mail']  != '' &&
+	$_POST['funk_tlf']   != '' &&
+	$_POST['funk_valg1'] != '') {      
+
+      // Insert into db. $settinnidb will have value if successfull :)
       $settinnidb = $wpdb->insert( $table_name, array( 'name'        => mysql_real_escape_string($_POST['funk_name'])                   ,
 						       'tlf'         => mysql_real_escape_string($_POST['funk_tlf'])                    ,
 						       'mail'        => mysql_real_escape_string($_POST['funk_mail'])                   ,
 						       'studsted'    => mysql_real_escape_string($_POST['funk_studsted'])               ,
-						       'artist'      => $_POST['funk_artist'] == "t"                                    ,
-						       'konsert'     => $_POST['funk_konsert'] == "t"                                   ,
-						       'bar'         => $_POST['funk_bar'] == "t"                                       ,
-						       'teknisk'     => $_POST['funk_teknisk'] == "t"                                   ,
-						       'transport'   => $_POST['funk_transport'] == "t"                                 ,
-						       'trivsel'     => $_POST['funk_trivsel'] == "t"                                   ,
-						       'morgen'      => $_POST['funk_morgen'] == "t"                                    ,
-						       'dag'         => $_POST['funk_dag'] == "t"                                       ,
-						       'kveld'       => $_POST['funk_kveld'] == "t"                                     ,
-						       'natt'        => $_POST['funk_natt'] == "t"                                      ,
 
+						       'valg1'       => mysql_real_escape_string($_POST['funk_valg1'])                  ,
+						       'valg2'       => mysql_real_escape_string($_POST['funk_valg2'])                  ,
+						       'valg3'       => mysql_real_escape_string($_POST['funk_valg3'])                  ,
+						       
+						       'morgen'      => $_POST['funk_morgen'] == "t"                                    ,
+						       'dag'         => $_POST['funk_dag']    == "t"                                    ,
+						       'kveld'       => $_POST['funk_kveld']  == "t"                                    ,
+						       'natt'        => $_POST['funk_natt']   == "t"                                    ,
+						       
 						       'man1'        => $_POST['funk_1man'] == "t"                                      ,
 						       'tir1'        => $_POST['funk_1tir'] == "t"                                      ,
 						       'ons1'        => $_POST['funk_1ons'] == "t"                                      ,
@@ -110,6 +110,7 @@ function blimed_form( ) {
 						       'fre3'        => $_POST['funk_3fre'] == "t"                                      ,
 						       'lor3'        => $_POST['funk_3lør'] == "t"                                      ,
 						       'son3'        => $_POST['funk_3søn'] == "t"                                      ,
+
 						       'kommentar' => mysql_real_escape_string($_POST['funk_kommentar'])
 						       )
 				   );
@@ -158,70 +159,97 @@ function blimed_form( ) {
 Hva vil du gjøre?
 <table>
         <tr>
-            <td> Artist&nbsp;&nbsp; </td><td> Bar&nbsp;&nbsp; </td><td> Teknisk&nbsp;&nbsp; </td><td> Transport&nbsp;&nbsp; </td><td> Konsert&nbsp;&nbsp; </td><td> Trivsel&nbsp;&nbsp; </td>
-                              </tr>
-                              <tr>
-                                  <td><input id="funk_artist" name="funk_artist" type="checkbox" value="t" /></td>
-                                  <td><input id="funk_bar" name="funk_bar" type="checkbox" value="t" /></td>
-                                  <td><input id="funk_teknisk" name="funk_teknisk" type="checkbox" value="t" /></td>
-                                  <td><input id="funk_transport" name="funk_transport" type="checkbox" value="t" /></td>
-                                  <td><input id="funk_konsert" name="funk_konsert" type="checkbox" value="t" /></td>
-                                  <td><input id="funk_trivsel" name="funk_trivsel" type="checkbox" value="t" /></td>
-                              </tr>
-                            </table>
+            <td> 1.valg oppgaver </td>
+            <td><select id="funk_valg1" name="funk_valg1">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+            </select></td>
+        </tr>
 
-                            <table>
-                              <tr><td>Uke</td><td>man&nbsp;</td><td>&nbsp;tir&nbsp;</td><td>&nbsp;ons&nbsp;</td><td>&nbsp;tor&nbsp;</td><td>&nbsp;fre&nbsp;</td><td>&nbsp;lør&nbsp;</td><td>&nbsp;søn&nbsp;</td></tr>
-                              <tr><td>uke 1:&nbsp;</td><td>
-                                 <input id="funk_1man" name="funk_1man" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1tir" name="funk_1tir" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1ons" name="funk_1ons" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1tor" name="funk_1tor" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1fre" name="funk_1fre" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1lør" name="funk_1lør" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_1søn" name="funk_1søn" type="checkbox" value="t" />
-                              </td></tr>
+        <tr>
+            <td> 2.valg oppgaver </td>
+            <td><select id="funk_valg2" name="funk_valg2">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+            </select></td>
+        </tr>
 
-                              <tr><td>uke 2: &nbsp;</td><td>
-                                 <input id="funk_2man" name="funk_2man" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2tir" name="funk_2tir" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2ons" name="funk_2ons" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2tor" name="funk_2tor" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2fre" name="funk_2fre" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2lør" name="funk_2lør" type="checkbox" value="t" />
-                              </td><td>
-                                 <input id="funk_2søn" name="funk_2søn" type="checkbox" value="t" />
-                              </td></tr>
-                              <tr>
+        <tr>
+            <td> 3.valg oppgaver </td>
+            <td><select id="funk_valg3" name="funk_valg3">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+            </select></td>
+        </tr>
+      </table>
 
-                                 <td>uke 3: &nbsp;</td><td>
-                                   <input id="funk_3man" name="funk_3man" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3tir" name="funk_3tir" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3ons" name="funk_3ons" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3tor" name="funk_3tor" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3fre" name="funk_3fre" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3lør" name="funk_3lør" type="checkbox" value="t" />
-                                 </td><td>
-                                   <input id="funk_3søn" name="funk_3søn" type="checkbox" value="t" />
-                                 </td></tr>
+      <table>
+         <tr><td>Uke</td><td>man&nbsp;</td><td>&nbsp;tir&nbsp;</td><td>&nbsp;ons&nbsp;</td><td>&nbsp;tor&nbsp;</td><td>&nbsp;fre&nbsp;</td><td>&nbsp;lør&nbsp;</td><td>&nbsp;søn&nbsp;</td></tr>
+         <tr><td>uke 1:&nbsp;</td><td>
+               <input id="funk_1man" name="funk_1man" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1tir" name="funk_1tir" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1ons" name="funk_1ons" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1tor" name="funk_1tor" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1fre" name="funk_1fre" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1lør" name="funk_1lør" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_1søn" name="funk_1søn" type="checkbox" value="t" />
+         </td></tr>
 
-                            </table>
+         <tr><td>uke 2: &nbsp;</td><td>
+               <input id="funk_2man" name="funk_2man" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2tir" name="funk_2tir" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2ons" name="funk_2ons" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2tor" name="funk_2tor" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2fre" name="funk_2fre" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2lør" name="funk_2lør" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_2søn" name="funk_2søn" type="checkbox" value="t" />
+         </td></tr>
+         <tr>
+
+             <td>uke 3: &nbsp;</td><td>
+               <input id="funk_3man" name="funk_3man" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3tir" name="funk_3tir" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3ons" name="funk_3ons" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3tor" name="funk_3tor" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3fre" name="funk_3fre" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3lør" name="funk_3lør" type="checkbox" value="t" />
+             </td><td>
+               <input id="funk_3søn" name="funk_3søn" type="checkbox" value="t" />
+         </td></tr>
+
+       </table>
 
        Andre bemerkelser: <textarea id="funk_kommentar" name="funk_kommentar"></textarea>
        <input id="saveForm" class="submitButton" type="submit" name="save" value="Submit Form" />
@@ -229,7 +257,173 @@ Hva vil du gjøre?
   echo '</div>';
     
   if ($backspinn != '') echo $backspinn;
-  else echo '<a href="#"><span class="frontbox" src="#studioform" height="420" title="blimed"></span>Bli med</a>';
+  else echo '<a href="#"><span class="frontbox" src="#studioform" height="450" title="blimed"></span>Bli med</a>';
 }
 
 add_shortcode('blimed_form', 'blimed_form');
+
+function blimed_admin_content($param, $date){
+
+    global $wpdb;
+        
+    $show_query = "SELECT * FROM wp_studio_blimed_table";
+    $show_query2 = "SELECT * FROM wp_studio_blimed_table";
+    $show_query3 = "SELECT * FROM wp_studio_blimed_table";
+
+    if ($param == 'all' && $date == 'all') {
+        $show_query .= "";
+    } elseif ($param == 'all' && $date != 'all') {
+        $show_query .= " WHERE ".$date." = 1;";
+    } elseif ($param != 'all' && $date == 'all') {
+        $show_query .= " WHERE valg1 = '".$param."'";
+        $show_query2 .= " WHERE valg2 = '".$param."'";
+        $show_query3 .= " WHERE valg3 = '".$param."'";
+    } elseif ($param != 'all' && $date != 'all') {
+        $show_query .= " WHERE valg1 = '".$param."' AND '".$date."' = 1";
+        $show_query2 .= " WHERE valg2 = '".$param."' AND '".$date."' = 1";
+        $show_query3 .= " WHERE valg3 = '".$param."' AND '".$date."' = 1";
+    }
+
+    if ($param == 'all') {
+        echo "Søket som er utført er: " . $show_query . "<br /><br />";
+        $funks = $wpdb->get_results($show_query);
+
+        blimed_print_table($funks);
+
+    } elseif ($param != 'all') {
+
+        $funks = $wpdb->get_results($show_query);
+        $funks2 = $wpdb->get_results($show_query2);
+        $funks3 = $wpdb->get_results($show_query3);
+
+        echo "<h3>Førstevalget: " . $param . "</h3><br /><br />";
+
+        echo "Søket som er utført er: " . $show_query . "<br /><br />";
+
+        blimed_print_table($funks);
+
+        echo "<h3>Andrevalget: " . $param . "</h3> <br /><br />";
+
+        echo "Søket som er utført er: " . $show_query2 . "<br /><br />";
+
+        blimed_print_table($funks2);
+
+        echo "<h3>Tredjeevalget: ".$param."</h3> <br />";
+
+        echo "Søket som er utført er: ".$show_query3 . "<br /><br />";
+
+        blimed_print_table($funks3);
+
+
+    }
+
+}
+
+function blimed_print_table( $funks ){
+        
+        $dagvariabler = array('man1', 'tir1', 'ons1', 'tor1', 'fre1', 'lor1', 'son1',
+                              'man2', 'tir2', 'ons2', 'tor2', 'fre2', 'lor2', 'son2',
+                              'man3', 'tir3', 'ons3', 'tor3', 'fre3', 'lor3', 'son3');
+
+        $tidvar = array('morgen', 'dag', 'kveld', 'natt');
+        echo "<table style='border:1px;'>
+            <tr>
+                <th>Navn</th>
+                <th>Epost</th>
+                <th>Telefon</th>
+                <th>Studiested</th>
+                <th>Førstevalg</th>
+                <th>Andrevalg</th>
+                <th>Tredjevalg</th>
+                <th>Dager</th>
+                <th>Tider</th>
+                <th>Kommentar</th>
+            </tr>
+        ";
+        foreach ($funks as $funk) {
+            $dager = ""; $tider = "";
+            foreach ($dagvariabler as $dag) {
+                if ($funk->$dag == 1) $dager .= $dag . ", ";
+            }
+            
+            foreach ($tidvar as $tid) {
+                if ($funk->$tid == 1) $tider .= $tid . ", ";
+            }
+    
+            echo "<tr>
+                    <td>$funk->name</td>
+                    <td>$funk->mail</td>
+                    <td>$funk->tlf</td>
+                    <td>$funk->studsted</td>
+                    <td>$funk->valg1</td>
+                    <td>$funk->valg2</td>
+                    <td>$funk->valg3</td>
+                    <td>$dager</td>
+                    <td>$tider</td>
+                    <td>$funk->kommentar</td>
+                  </tr>" ;
+        }
+        echo "</table><br /><br />";
+}
+
+
+function blimed_admin() {
+	echo '
+<div class="wrap">
+    <h1>test</h1>
+
+    <form id="select stuff" method="post" action="">
+        hvem skal vises:
+        <select id="blimed_admin_sort" name="blimed_admin_sort">
+            <option value="all">all</option>
+            <option value="artist">Artist</option>
+            <option value="konsert">Konsert</option>
+            <option value="bar">Bar</option>
+            <option value="teknisk">Teknisk</option>
+            <option value="transport">Transport</option>
+            <option value="trivsel">Trivsel</option>
+        </select>
+        <select id="blimed_admin_date" name="blimed_admin_date">
+            <option value="all">all</option>
+            <option value="man1">Mandag uke 1</option>
+            <option value="tir1">Tirsdag uke 1</option>
+            <option value="ons1">Onsdag uke 1</option>
+            <option value="tor1">Torsdag uke 1</option>
+            <option value="fre1">Fredag uke 1</option>
+            <option value="lor1">Lørdag uke 1</option>
+            <option value="son1">Søndag uke 1</option>
+
+            <option value="man2">Mandag uke 2</option>
+            <option value="tir2">Tirsdag uke 2</option>
+            <option value="ons2">Onsdag uke 2</option>
+            <option value="tor2">Torsdag uke 2</option>
+            <option value="fre2">Fredag uke 2</option>
+            <option value="lor2">Lørdag uke 2</option>
+            <option value="son2">Søndag uke 2</option>
+
+            <option value="man3">Mandag uke 3</option>
+            <option value="tir3">Tirsdag uke 3</option>
+            <option value="ons3">Onsdag uke 3</option>
+            <option value="tor3">Torsdag uke 3</option>
+            <option value="fre3">Fredag uke 3</option>
+            <option value="lor3">Lørdag uke 3</option>
+            <option value="son3">Søndag uke 3</option>
+        </select>
+        <input id="saveForm" class="submitButton" type="submit" name="sort" value="Sorter" />
+    </form>
+    '; 
+
+    if($_POST['sort'])
+        blimed_admin_content($_POST['blimed_admin_sort'], $_POST['blimed_admin_date']);
+    else
+        blimed_admin_content('all', 'all'); 
+    echo '
+</div>';
+}
+
+function blimed_admin_test() {
+	add_menu_page('blimed', 'blimed', 'manage_options', 'blimed-admin-slug', 'blimed_admin');
+}
+
+add_action('admin_menu', 'blimed_admin_test');
+

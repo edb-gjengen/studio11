@@ -83,6 +83,7 @@ if (!class_exists("StudioArtist")) {
 
 	$artist_font = get_post_meta($post->ID, 'studio_artist_font' , true);
 	$artist_link = get_post_meta($post->ID, 'studio_artist_link', true);
+    $artist_event = get_post_meta($post->ID, 'studio_artist_event', true);
 
 	echo "Fontstørrelse:";
 	echo '<select name="studio_artist_font">';
@@ -102,7 +103,25 @@ if (!class_exists("StudioArtist")) {
 	    echo ' selected="selected"';
 	  echo '>' . $type['name'] . '</option>';
 	}
-	echo '</select>';
+	echo '</select><br />';
+
+    echo 'Event:
+    <select name="studio_artist_event">';
+        echo $artist_event;
+	    $events = query_posts( array('post_type' => 'event', 'posts_per_page' => -1, 'order' => 'ASC'));
+	  
+	    foreach ($events as $event) {
+	      if ($event->post_title != '' ){
+	        echo '<option value="'.$event->guid.'"';
+	        if($event->guid == $artist_event)
+	          echo ' selected="selected"';
+	        echo '>'.$event->post_title.'</option>';
+	      }
+	    }
+	echo "
+    </select>";  
+	
+
 
 	echo '<br />Artisturl:<br /><input type="text" name="studio_artist_link" value="'.$artist_link.'" />';
 
@@ -123,6 +142,7 @@ if (!class_exists("StudioArtist")) {
 	// Get posted data
 	$studart['studio_artist_font'] = $_POST['studio_artist_font' ];
 	$studart['studio_artist_link'] = $_POST['studio_artist_link'];
+    $studart['studio_artist_event'] = $_POST['studio_artist_event'];
 	
 	foreach($studart as $key=>$value)
 	  if ( !update_post_meta($post_id, $key, $value))
@@ -144,8 +164,9 @@ if (!class_exists("StudioArtist")) {
 	  
 	  while ( $artister->have_posts() ) {
 	    $artister->the_post();
+	    $link = get_post_meta($post->ID, 'studio_artist_event', true);
 	    $size = get_post_meta($post->ID, 'studio_artist_font', true);
-	    $html .= '  <li class="title" style="padding-right:10px; font-size:'.$size.'px"><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+	    $html .= '  <li class="title" style="padding-right:10px; font-size:'.$size.'px"><a href="' . $link . '">' . get_the_title() . '</a></li>';
 	  }
 	    
 	  $html .= '</ul><!-- .artist-table -->';
