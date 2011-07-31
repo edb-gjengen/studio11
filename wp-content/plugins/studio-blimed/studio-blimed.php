@@ -123,13 +123,14 @@ function blimed_form( ) {
     } else $backspinn = 'Du må oppgi navn, epost, tlf og minst et arbeidsområde';    
 
   } 
-  echo '    <div id="studioform" style="display:none">
+  echo '    <div id="studioform">
    <form id="funk_data_form" method="post" action="">
      <table>
        <tr>
        <td>Navn:</td> 
        <td><input type="text" name="funk_name" id="funk_name" /></td>
-	   <td><select id="funk_valg1" name="funk_valg1">
+	   <td> 1.valg oppgaver </td>
+       <td><select id="funk_valg1" name="funk_valg1">
               <option value=""></option>
               <option value="artist">Artist</option>
               <option value="konsert">Konsert</option>
@@ -155,6 +156,7 @@ function blimed_form( ) {
        </tr><tr>
        <td>Mail: </td> 
        <td><input type="text" name="funk_mail" id="funk_mail" /></td>
+       <td> 3.valg oppgaver </td>
        <td><select id="funk_valg3" name="funk_valg3">
               <option value=""></option>
               <option value="artist">Artist</option>
@@ -252,9 +254,9 @@ function blimed_admin_content($param, $date){
 
     global $wpdb;
         
-    $show_query = "SELECT * FROM wp_studio_blimed_table";
-    $show_query2 = "SELECT * FROM wp_studio_blimed_table";
-    $show_query3 = "SELECT * FROM wp_studio_blimed_table";
+    $show_query = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
+    $show_query2 = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
+    $show_query3 = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
 
     if ($param == 'all' && $date == 'all') {
         $show_query .= "";
