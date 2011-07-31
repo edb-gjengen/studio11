@@ -241,8 +241,8 @@ function blimed_form( ) {
 
        Andre bemerkelser: <textarea id="funk_kommentar" name="funk_kommentar"></textarea>
        <input id="saveForm" class="submitButton" type="submit" name="save" value="Submit Form" />
-       </form>';
-  echo '</div>';
+       </form></div>';
+
     
   if ($backspinn != '') echo $backspinn;
   else echo '<a href="#"><span class="frontbox" src="#studioform" height="450" title="blimed"></span>Bli med</a>';
