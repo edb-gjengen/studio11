@@ -11,7 +11,7 @@ Author URI:
 
 //include_once './studio-blimed-admin.php';
 register_activation_hook( __FILE__,  'studio_blimed_install' );
-register_deactivation_hook( __FILE__,  'studio_blimed_uninstall' );
+//register_deactivation_hook( __FILE__,  'studio_blimed_uninstall' );
 
 /** drops table on deactivation TODO : Get backup on deactivation */
 
@@ -20,7 +20,6 @@ function studio_blimed_uninstall() {
   $studio_blimed_table = $wpdb->prefix . "studio_blimed_table";
   $wpdb->query("DROP TABLE IF EXISTS $studio_blimed_table ;");
 }
-
 /** Activation of plugin, creates the tables */
 
 function studio_blimed_install() {
