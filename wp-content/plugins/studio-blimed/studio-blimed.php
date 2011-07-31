@@ -124,7 +124,7 @@ function blimed_form( ) {
     } else $backspinn = 'Du må oppgi navn, epost, tlf og minst et arbeidsområde';    
 
   } 
-  echo '    <div id="studioform" style="display:none">
+  echo '   
    <form id="funk_data_form" method="post" action="">
      <table>
        <tr>
@@ -254,7 +254,7 @@ Hva vil du gjøre?
        Andre bemerkelser: <textarea id="funk_kommentar" name="funk_kommentar"></textarea>
        <input id="saveForm" class="submitButton" type="submit" name="save" value="Submit Form" />
        </form>';
-  echo '</div>';
+
     
   if ($backspinn != '') echo $backspinn;
   else echo '<a href="#"><span class="frontbox" src="#studioform" height="450" title="blimed"></span>Bli med</a>';
