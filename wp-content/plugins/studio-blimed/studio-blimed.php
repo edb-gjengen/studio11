@@ -130,13 +130,41 @@ function blimed_form( ) {
        <tr>
        <td>Navn:</td> 
        <td><input type="text" name="funk_name" id="funk_name" /></td>
+	   <td><select id="funk_valg1" name="funk_valg1">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr>
        <tr>
        <td>Tlf:</td>
        <td><input type="text" name="funk_tlf" id="funk_tlf" /></td>
+       <td> 2.valg oppgaver </td>
+       <td><select id="funk_valg2" name="funk_valg2">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr><tr>
        <td>Mail: </td> 
        <td><input type="text" name="funk_mail" id="funk_mail" /></td>
+       <td><select id="funk_valg3" name="funk_valg3">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr><tr>
        <td>Studiested: </td> 
        <td><input type="text" name="funk_studsted" id="funk_studsted" /></td>
@@ -156,47 +184,6 @@ function blimed_form( ) {
             <td><input id="funk_natt" name="funk_natt" type="checkbox" value="t" /></td>
         </tr>
 </table><br />
-Hva vil du gjøre?
-<table>
-        <tr>
-            <td> 1.valg oppgaver </td>
-            <td><select id="funk_valg1" name="funk_valg1">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-
-        <tr>
-            <td> 2.valg oppgaver </td>
-            <td><select id="funk_valg2" name="funk_valg2">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-
-        <tr>
-            <td> 3.valg oppgaver </td>
-            <td><select id="funk_valg3" name="funk_valg3">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-      </table>
 
       <table>
          <tr><td>Uke</td><td>man&nbsp;</td><td>&nbsp;tir&nbsp;</td><td>&nbsp;ons&nbsp;</td><td>&nbsp;tor&nbsp;</td><td>&nbsp;fre&nbsp;</td><td>&nbsp;lør&nbsp;</td><td>&nbsp;søn&nbsp;</td></tr>
