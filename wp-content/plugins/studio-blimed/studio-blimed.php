@@ -11,7 +11,7 @@ Author URI:
 
 //include_once './studio-blimed-admin.php';
 register_activation_hook( __FILE__,  'studio_blimed_install' );
-register_deactivation_hook( __FILE__,  'studio_blimed_uninstall' );
+//register_deactivation_hook( __FILE__,  'studio_blimed_uninstall' );
 
 /** drops table on deactivation TODO : Get backup on deactivation */
 
@@ -20,7 +20,6 @@ function studio_blimed_uninstall() {
   $studio_blimed_table = $wpdb->prefix . "studio_blimed_table";
   $wpdb->query("DROP TABLE IF EXISTS $studio_blimed_table ;");
 }
-
 /** Activation of plugin, creates the tables */
 
 function studio_blimed_install() {
@@ -124,19 +123,49 @@ function blimed_form( ) {
     } else $backspinn = 'Du må oppgi navn, epost, tlf og minst et arbeidsområde';    
 
   } 
-  echo '   
+  echo '    <div id="studioform">
    <form id="funk_data_form" method="post" action="">
      <table>
        <tr>
        <td>Navn:</td> 
        <td><input type="text" name="funk_name" id="funk_name" /></td>
+	   <td> 1.valg oppgaver </td>
+       <td><select id="funk_valg1" name="funk_valg1">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr>
        <tr>
        <td>Tlf:</td>
        <td><input type="text" name="funk_tlf" id="funk_tlf" /></td>
+       <td> 2.valg oppgaver </td>
+       <td><select id="funk_valg2" name="funk_valg2">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr><tr>
        <td>Mail: </td> 
        <td><input type="text" name="funk_mail" id="funk_mail" /></td>
+       <td> 3.valg oppgaver </td>
+       <td><select id="funk_valg3" name="funk_valg3">
+              <option value=""></option>
+              <option value="artist">Artist</option>
+              <option value="konsert">Konsert</option>
+              <option value="bar">Bar</option>
+              <option value="teknisk">Teknisk</option>
+              <option value="transport">Transport</option>
+              <option value="trivsel">Trivsel</option>
+       </select></td>	
        </tr><tr>
        <td>Studiested: </td> 
        <td><input type="text" name="funk_studsted" id="funk_studsted" /></td>
@@ -156,47 +185,6 @@ function blimed_form( ) {
             <td><input id="funk_natt" name="funk_natt" type="checkbox" value="t" /></td>
         </tr>
 </table><br />
-Hva vil du gjøre?
-<table>
-        <tr>
-            <td> 1.valg oppgaver </td>
-            <td><select id="funk_valg1" name="funk_valg1">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-
-        <tr>
-            <td> 2.valg oppgaver </td>
-            <td><select id="funk_valg2" name="funk_valg2">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-
-        <tr>
-            <td> 3.valg oppgaver </td>
-            <td><select id="funk_valg3" name="funk_valg3">
-              <option value=""></option>
-              <option value="artist">Artist</option>
-              <option value="konsert">Konsert</option>
-              <option value="bar">Bar</option>
-              <option value="teknisk">Teknisk</option>
-              <option value="transport">Transport</option>
-              <option value="trivsel">Trivsel</option>
-            </select></td>
-        </tr>
-      </table>
 
       <table>
          <tr><td>Uke</td><td>man&nbsp;</td><td>&nbsp;tir&nbsp;</td><td>&nbsp;ons&nbsp;</td><td>&nbsp;tor&nbsp;</td><td>&nbsp;fre&nbsp;</td><td>&nbsp;lør&nbsp;</td><td>&nbsp;søn&nbsp;</td></tr>
@@ -253,7 +241,7 @@ Hva vil du gjøre?
 
        Andre bemerkelser: <textarea id="funk_kommentar" name="funk_kommentar"></textarea>
        <input id="saveForm" class="submitButton" type="submit" name="save" value="Submit Form" />
-       </form>';
+       </form></div>';
 
     
   if ($backspinn != '') echo $backspinn;
@@ -266,9 +254,9 @@ function blimed_admin_content($param, $date){
 
     global $wpdb;
         
-    $show_query = "SELECT * FROM wp_studio_blimed_table";
-    $show_query2 = "SELECT * FROM wp_studio_blimed_table";
-    $show_query3 = "SELECT * FROM wp_studio_blimed_table";
+    $show_query = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
+    $show_query2 = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
+    $show_query3 = "SELECT * FROM ".$wpdb->prefix."studio_blimed_table";
 
     if ($param == 'all' && $date == 'all') {
         $show_query .= "";

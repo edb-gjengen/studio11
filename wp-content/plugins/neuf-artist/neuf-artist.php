@@ -166,7 +166,7 @@ if (!class_exists("StudioArtist")) {
 	    $artister->the_post();
 	    $link = get_post_meta($post->ID, 'studio_artist_event', true);
 	    $size = get_post_meta($post->ID, 'studio_artist_font', true);
-	    $html .= '  <li class="title" style="padding-right:10px; font-size:'.$size.'px"><a href="' . $link . '">' . get_the_title() . '</a></li>';
+	    $html .= '  <li class="title '.$size.'" style="padding-right:10px;"><a href="' . $link . '">' . get_the_title() . '</a></li>';
 	  }
 	    
 	  $html .= '</ul><!-- .artist-table -->';
